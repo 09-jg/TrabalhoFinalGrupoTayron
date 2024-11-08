@@ -1,0 +1,83 @@
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Início - E-commerce</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <h1>Bem-vindo ao E-commerce de Celulares</h1>
+    
+    <!-- Exibir mensagens flash -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-popup">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+ 
+
+    <!-- Navegação de páginas -->
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('cadastrar_cliente') }}">Cadastrar Cliente</a></li>
+            <li><a href="{{ url_for('cadastrar_produto') }}">Cadastrar Produto</a></li>
+            <li><a href="{{ url_for('cadastrar_venda') }}">Realizar Venda</a></li>
+        </ul>
+    </nav>
+
+    <h2>Produtos Disponíveis</h2>
+    <ul>
+        {% for produto in produtos %}
+            <li>{{ produto.nome }} - 
+                <a href="{{ url_for('visualizar_produto', id=produto.id) }}">Ver</a> | 
+                <a href="{{ url_for('editar_produto', id=produto.id) }}">Editar</a> | 
+                <a href="{{ url_for('deletar_produto', id=produto.id) }}" onclick="return confirm('Tem certeza que deseja deletar?');">Deletar</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Clientes Cadastrados</h2>
+    <ul>
+        {% for cliente in clientes %}
+            <li>{{ cliente.nome }} - 
+                <a href="{{ url_for('visualizar_cliente', id=cliente.id) }}">Ver</a> | 
+                <a href="{{ url_for('editar_cliente', id=cliente.id) }}">Editar</a> | 
+                <a href="{{ url_for('deletar_cliente', id=cliente.id) }}" onclick="return confirm('Tem certeza que deseja deletar?');">Deletar</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Vendas Registradas</h2>
+    <ul>
+        {% for venda in vendas %}
+            <li>Venda para {{ venda.cliente.nome }} - Produto: {{ venda.produto.nome }} - 
+                <a href="{{ url_for('visualizar_venda', id=venda.id) }}">Ver</a> | 
+                <a href="{{ url_for('editar_venda', id=venda.id) }}">Editar</a> | 
+                <a href="{{ url_for('deletar_venda', id=venda.id) }}" onclick="return confirm('Tem certeza que deseja deletar?');">Deletar</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
+
+
+
+<script>
+    setTimeout(() => {
+        const flashPopup = document.querySelector('.flash-popup');
+        if (flashPopup) {
+            flashPopup.remove();
+        }
+    }, 5000);  
+</script>
+
+

@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_styles.css') }}">
+
+
+<form method="POST">
+    <h1>Editar Venda</h1>
+    Cliente:
+    <select name="cliente_id">
+        {% for cliente in clientes %}
+            <option value="{{ cliente.id }}" {% if cliente.id == venda.cliente_id %}selected{% endif %}>{{ cliente.nome }}</option>
+        {% endfor %}
+    </select><br>
+    
+    Produto:
+    <select name="produto_id">
+        {% for produto in produtos %}
+            <option value="{{ produto.id }}" {% if produto.id == venda.produto_id %}selected{% endif %}>{{ produto.nome }}</option>
+        {% endfor %}
+    </select><br>
+
+    Quantidade: <input type="number" name="quantidade" value="{{ venda.quantidade }}"><br>
+    <button type="submit" class="btn-salvar">Salvar</button>
+    <a href="{{ url_for('index') }}"><button>Voltar</button></a>
+</form>

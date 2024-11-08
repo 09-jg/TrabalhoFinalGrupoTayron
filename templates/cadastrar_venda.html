@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Venda</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form_styles.css') }}">
+</head>
+<body>
+    
+    
+    <form action="{{ url_for('cadastrar_venda') }}" method="post">
+        <h1>Cadastrar Venda</h1>
+        <label for="cliente_id">Cliente:</label>
+        <select name="cliente_id" id="cliente_id" required>
+            {% for cliente in clientes %}
+                <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="produto_id">Produto:</label>
+        <select name="produto_id" id="produto_id" required>
+            {% for produto in produtos %}
+                <option value="{{ produto.id }}">{{ produto.nome }} (Estoque: {{ produto.quantidade_estoque }})</option>
+            {% endfor %}
+        </select>
+        
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" name="quantidade" id="quantidade" min="1" required>
+        
+        
+        <button type="submit" class="btn-salvar">Cadastrar Venda</button>
+
+       
+        
+    </form>
+    
+    
+
+    
+   
+    
+    
+</body>
+</html>
